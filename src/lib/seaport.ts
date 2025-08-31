@@ -182,14 +182,15 @@ export class ENSSeaport {
   }
 
   // Cancel a listing
-  async cancelListing(orderHash: string): Promise<any> {
+  // Note: Requires full order components, not just order hash
+  async cancelListing(orderComponents: any): Promise<any> {
     if (!this.signer) {
       throw new Error('Signer required for canceling listings')
     }
 
     const offerer = await this.signer.getAddress()
 
-    return await this.seaport.cancelOrders([orderHash], offerer)
+    return await this.seaport.cancelOrders([orderComponents], offerer)
   }
 
   // Get order status

@@ -1,7 +1,7 @@
 import { Seaport } from '@opensea/seaport-js'
 import { ItemType } from '@opensea/seaport-js/lib/constants'
 import { ethers } from 'ethers'
-import { ENS_CONTRACTS, SEAPORT_CONTRACT, WETH_CONTRACT } from '@/types'
+import { ENS_CONTRACTS, SEAPORT_CONTRACT, WETH_CONTRACT, ENSNFT, Listing, Offer } from '@/types'
 
 export class ENSSeaport {
   private seaport: Seaport

@@ -5,10 +5,10 @@ import { ENS_CONTRACTS, SEAPORT_CONTRACT, WETH_CONTRACT } from '@/types'
 
 export class ENSSeaport {
   private seaport: Seaport
-  private provider: ethers.Provider
+  private provider: ethers.JsonRpcProvider
   private signer?: ethers.Signer
 
-  constructor(provider: ethers.Provider, signer?: ethers.Signer) {
+  constructor(provider: ethers.JsonRpcProvider, signer?: ethers.Signer) {
     this.provider = provider
     this.signer = signer
     this.seaport = new Seaport(provider, {
@@ -262,7 +262,7 @@ export const parseENSPrice = (price: string): string => {
 export const getENSNameFromTokenId = async (
   tokenId: string,
   contractAddress: string,
-  provider: ethers.Provider
+  provider: ethers.JsonRpcProvider
 ): Promise<string | null> => {
   try {
     // This is a simplified version - in production you'd use the ENS Registry

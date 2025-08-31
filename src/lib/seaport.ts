@@ -96,38 +96,39 @@ export class ENSSeaport {
 
     const fulfiller = await this.signer.getAddress()
 
-    const { executeAllActions } = await this.seaport.fulfillOrder({
-      order: {
-        parameters: {
-          offerer: listing.seller,
-          zone: ethers.ZeroAddress,
-          offer: [{
-            itemType: ItemType.ERC721,
-            token: listing.nft.contractAddress,
-            identifierOrCriteria: listing.nft.tokenId,
-            startAmount: '1',
-            endAmount: '1',
-          }],
-          consideration: [{
-            itemType: listing.currency === 'WETH' ? ItemType.ERC20 : ItemType.NATIVE,
-            token: listing.currency === 'WETH' ? WETH_CONTRACT : ethers.ZeroAddress,
-            identifierOrCriteria: '0',
-            startAmount: ethers.parseEther(listing.price).toString(),
-            endAmount: ethers.parseEther(listing.price).toString(),
-            recipient: listing.seller,
-          }],
-          orderType: 0, // FULL_OPEN
-          startTime: listing.startTime.toString(),
-          endTime: listing.endTime.toString(),
-          zoneHash: ethers.ZeroHash,
-          salt: '0',
-          conduitKey: ethers.ZeroHash,
-          counter: '0',
-        },
-        signature: '0x', // Would need actual signature
-      },
-      accountAddress: fulfiller,
-    })
+                 const { executeAllActions } = await this.seaport.fulfillOrder({
+               order: {
+                 parameters: {
+                   offerer: listing.seller,
+                   zone: ethers.ZeroAddress,
+                   offer: [{
+                     itemType: ItemType.ERC721,
+                     token: listing.nft.contractAddress,
+                     identifierOrCriteria: listing.nft.tokenId,
+                     startAmount: '1',
+                     endAmount: '1',
+                   }],
+                   consideration: [{
+                     itemType: listing.currency === 'WETH' ? ItemType.ERC20 : ItemType.NATIVE,
+                     token: listing.currency === 'WETH' ? WETH_CONTRACT : ethers.ZeroAddress,
+                     identifierOrCriteria: '0',
+                     startAmount: ethers.parseEther(listing.price).toString(),
+                     endAmount: ethers.parseEther(listing.price).toString(),
+                     recipient: listing.seller,
+                   }],
+                   orderType: 0, // FULL_OPEN
+                   startTime: listing.startTime.toString(),
+                   endTime: listing.endTime.toString(),
+                   zoneHash: ethers.ZeroHash,
+                   salt: '0',
+                   conduitKey: ethers.ZeroHash,
+                   counter: '0',
+                   totalOriginalConsiderationItems: 1, // Required field
+                 },
+                 signature: '0x', // Would need actual signature
+               },
+               accountAddress: fulfiller,
+             })
 
     return { executeAllActions }
   }
@@ -143,38 +144,39 @@ export class ENSSeaport {
 
     const fulfiller = await this.signer.getAddress()
 
-    const { executeAllActions } = await this.seaport.fulfillOrder({
-      order: {
-        parameters: {
-          offerer: offer.buyer,
-          zone: ethers.ZeroAddress,
-          offer: [{
-            itemType: offer.currency === 'WETH' ? ItemType.ERC20 : ItemType.NATIVE,
-            token: offer.currency === 'WETH' ? WETH_CONTRACT : ethers.ZeroAddress,
-            identifierOrCriteria: '0',
-            startAmount: ethers.parseEther(offer.offerAmount).toString(),
-            endAmount: ethers.parseEther(offer.offerAmount).toString(),
-          }],
-          consideration: [{
-            itemType: ItemType.ERC721,
-            token: listing.nft.contractAddress,
-            identifierOrCriteria: listing.nft.tokenId,
-            startAmount: '1',
-            endAmount: '1',
-            recipient: offer.buyer,
-          }],
-          orderType: 0,
-          startTime: Math.floor(Date.now() / 1000).toString(),
-          endTime: (Math.floor(Date.now() / 1000) + 3600).toString(), // 1 hour
-          zoneHash: ethers.ZeroHash,
-          salt: '0',
-          conduitKey: ethers.ZeroHash,
-          counter: '0',
-        },
-        signature: '0x',
-      },
-      accountAddress: fulfiller,
-    })
+                 const { executeAllActions } = await this.seaport.fulfillOrder({
+               order: {
+                 parameters: {
+                   offerer: offer.buyer,
+                   zone: ethers.ZeroAddress,
+                   offer: [{
+                     itemType: offer.currency === 'WETH' ? ItemType.ERC20 : ItemType.NATIVE,
+                     token: offer.currency === 'WETH' ? WETH_CONTRACT : ethers.ZeroAddress,
+                     identifierOrCriteria: '0',
+                     startAmount: ethers.parseEther(offer.offerAmount).toString(),
+                     endAmount: ethers.parseEther(offer.offerAmount).toString(),
+                   }],
+                   consideration: [{
+                     itemType: ItemType.ERC721,
+                     token: listing.nft.contractAddress,
+                     identifierOrCriteria: listing.nft.tokenId,
+                     startAmount: '1',
+                     endAmount: '1',
+                     recipient: offer.buyer,
+                   }],
+                   orderType: 0,
+                   startTime: Math.floor(Date.now() / 1000).toString(),
+                   endTime: (Math.floor(Date.now() / 1000) + 3600).toString(), // 1 hour
+                   zoneHash: ethers.ZeroHash,
+                   salt: '0',
+                   conduitKey: ethers.ZeroHash,
+                   counter: '0',
+                   totalOriginalConsiderationItems: 1, // Required field
+                 },
+                 signature: '0x',
+               },
+               accountAddress: fulfiller,
+             })
 
     return { executeAllActions }
   }

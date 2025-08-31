@@ -2,9 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  experimental: {
-    appDir: false, // Using pages directory for consistency
-  },
+
   images: {
     domains: ['opensea.io', 'cdn.opensea.io', 'ipfs.io', 'gateway.pinata.cloud'],
     remotePatterns: [
